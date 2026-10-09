@@ -61,14 +61,37 @@ h1 em, .section h2 span, .contact h2 em { color: var(--accent); font-style: norm
 .project { background:var(--surface); border:1px solid var(--line); }
 .project-featured { display:grid; grid-template-columns:1.2fr .8fr; }
 .project-media { min-height:430px; }
-.video-placeholder { background:
-  radial-gradient(circle at 50% 40%, rgba(184,255,90,.10), transparent 32%),
-  linear-gradient(135deg, #181818, #0e0e0e 70%);
-  display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
+
+.project-preview {
+  min-height: 430px;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(184,255,90,.10), transparent 32%),
+    linear-gradient(135deg, #1b1b1b, #101010 72%);
 }
-.video-placeholder:before { content:""; position:absolute; inset:25px; border:1px dashed rgba(255,255,255,.12); }
-.play-ring { width:76px; height:76px; border:1px solid rgba(184,255,90,.7); color:var(--accent); border-radius:50%; display:grid; place-items:center; padding-left:3px; font-size:18px; position:relative; z-index:1; }
-.media-bottom { position:absolute; bottom:16px; left:18px; right:18px; display:flex; justify-content:space-between; font:9px "DM Mono",monospace; color:#777; letter-spacing:.12em; z-index:2; }
+.project-card .project-preview { min-height: 270px; }
+.preview-placeholder {
+  width: 100%;
+  min-height: 220px;
+  border: 1px dashed rgba(255,255,255,.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  color: #8b8b85;
+  font: 10px "DM Mono", monospace;
+  letter-spacing: .1em;
+}
+.preview-placeholder small {
+  font: 10px "Manrope", sans-serif;
+  letter-spacing: 0;
+  color: #686862;
+}
+
 .project-info { padding:38px; display:flex; flex-direction:column; justify-content:center; }
 .project-number { font:11px "DM Mono",monospace; color:var(--accent); margin-bottom:20px; }
 .project h3 { font-size:34px; letter-spacing:-.04em; }
@@ -137,514 +160,175 @@ footer { max-width:var(--max); margin:auto; border-top:1px solid var(--line); pa
   footer { padding:20px 18px; }
 }
 
-/* =========================================================
-   BUNDLEFORGE — FEATURED APP
-========================================================= */
 
-.bundleforge-section {
-  width: 100%;
-  padding: 130px 0;
-  border-top: 1px solid var(--line);
+/* Project screenshot previews */
+.project-preview { overflow: hidden; }
+.project-preview > img { display:block; width:100%; height:100%; min-height:240px; object-fit:cover; object-position:top center; }
+
+
+/* Responsive screenshot and layout corrections */
+.project-preview { min-height: 0; padding: 0; display: block; aspect-ratio: 16 / 9; background: #111; }
+.project-preview > img { display:block; width:100%; height:100%; min-height:0; object-fit:cover; object-position:top center; }
+.project-featured .project-media { min-height:0; }
+.project-card .project-media { min-height:0; }
+.project-info { min-width:0; }
+.project h3, .project-info p { overflow-wrap:anywhere; }
+@media (min-width: 901px) {
+  .project-featured .project-preview { aspect-ratio: 16 / 10; }
+  .project-card .project-preview { aspect-ratio: 16 / 9; }
+}
+@media (max-width: 900px) {
+  .hero { min-height:0; gap:35px; padding-top:70px; padding-bottom:65px; }
+  .hero-visual { min-height:430px; }
+  .project-featured { grid-template-columns:minmax(0,1fr); }
+  .project-featured .project-preview { aspect-ratio:16/9; }
+  .project-info { padding:26px; }
+  .section { padding-top:85px; padding-bottom:85px; }
+  .intro-grid { gap:30px; }
+  .skills-grid { gap:35px; }
+}
+@media (max-width: 650px) {
+  .hero h1 { font-size:clamp(42px, 11vw, 54px); }
+  .hero-text { font-size:15px; }
+  .hero-visual { min-height:360px; }
+  .portrait-frame { width:min(78%, 290px); }
+  .floating-card { right:0; bottom:12px; width:165px; padding:14px; }
+  .section-heading { gap:18px; margin-bottom:30px; }
+  .section h2 { font-size:clamp(34px, 9vw, 46px); }
+  .project-grid { gap:16px; }
+  .project-card .project-info { padding:20px; }
+  .project-card h3 { font-size:24px; }
+  .project-featured .project-info { padding:22px; }
+  .services-grid { margin-top:25px; }
+  .skills-grid { margin-top:25px; }
+  .contact h2 { font-size:clamp(42px, 11vw, 60px); }
+  .contact-links { flex-wrap:wrap; gap:15px; }
+  footer { gap:12px; flex-wrap:wrap; font-size:9px; }
+}
+
+/* Refined homepage selected-work layout */
+.work-section .section-heading { margin-bottom: 42px; }
+.work-section .project { min-width: 0; overflow: hidden; border-radius: 3px; }
+.work-section .project-featured { align-items: stretch; }
+.work-section .project-featured .project-preview { aspect-ratio: 16 / 10; }
+.work-section .project-featured .project-preview img { object-fit: cover; object-position: top center; transition: transform .6s ease; }
+.work-section .project-info { min-width: 0; }
+.work-section .project-grid { align-items: stretch; gap: 18px; }
+.work-section .project-card { display: flex; flex-direction: column; min-width: 0; }
+.work-section .project-card .project-preview { aspect-ratio: 16 / 9; flex: 0 0 auto; }
+.work-section .project-card .project-preview img { object-fit: cover; object-position: top center; transition: transform .6s ease; }
+.work-section .project-card .project-info { flex: 1; align-items: flex-start; padding: 25px; }
+.work-section .project-card .project-number { margin-bottom: 12px; }
+.work-section .project-card h3 { font-size: clamp(22px, 2vw, 28px); line-height: 1.1; }
+.work-section .project-card .project-type { margin-bottom: 13px; line-height: 1.6; }
+.work-section .project-card .project-info p:not(.project-type) { line-height: 1.75; }
+.work-section .project-card .chips { margin-top: 18px; }
+.work-section .project-card .project-link { margin-top: 20px; }
+.work-section .project:hover .project-preview img { transform: scale(1.025); }
+.work-section .more-work { justify-content: space-between; gap: 18px 28px; margin-top: 28px; padding: 22px 0 0; border-top: 1px solid var(--line); }
+.work-section .more-work p { flex: 1; min-width: 180px; margin: 0; }
+.work-section .more-work .btn { flex: 0 0 auto; }
+@media (max-width: 900px) {
+  .work-section .project-featured { grid-template-columns: minmax(0, 1fr); }
+  .work-section .project-featured .project-preview { aspect-ratio: 16 / 9; }
+  .work-section .project-featured .project-info { padding: 28px; }
+}
+@media (max-width: 650px) {
+  .work-section .section-heading { align-items: flex-start; flex-direction: column; margin-bottom: 26px; }
+  .work-section .section-heading > p { max-width: 100%; }
+  .work-section .project-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .work-section .project-card .project-preview { aspect-ratio: 16 / 9; }
+  .work-section .project-card .project-info { padding: 22px; }
+  .work-section .more-work { align-items: flex-start; flex-direction: column; }
+  .work-section .more-work p { min-width: 0; }
 }
 
 
-/* ---------- Heading ---------- */
-
-.bundleforge-heading {
-  align-items: flex-end;
-  margin-bottom: 45px;
-}
-
-.bundleforge-heading h2 {
-  max-width: 850px;
-}
-
-.bundleforge-heading h2 span {
-  display: block;
-}
-
-
-.bundleforge-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-
-  padding: 9px 13px;
-
-  border: 1px solid var(--line);
-  border-radius: 999px;
-
-  color: var(--muted);
-
-  font-family: "DM Mono", monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-
-  white-space: nowrap;
-}
-
-
-.bundleforge-status-dot {
-  width: 7px;
-  height: 7px;
-
-  border-radius: 50%;
-
-  background: var(--accent);
-
-  box-shadow: 0 0 0 4px rgba(184, 255, 90, 0.08);
-
-  animation: bundleforge-pulse 2s ease-in-out infinite;
-}
-
-
-@keyframes bundleforge-pulse {
-
-  0%,
-  100% {
-    opacity: 0.45;
-    transform: scale(0.85);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-}
-
-
-/* ---------- Full Width Video ---------- */
-
-.bundleforge-video {
-  width: 100%;
-  height: min(76vh, 820px);
-
+/* =========================================
+   SELECTED WORK — STRUCTURE-FIRST FIX
+   ========================================= */
+#work .project-featured {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+  align-items: stretch;
+  gap: 0;
   overflow: hidden;
-
-  background: var(--surface);
-
-  border: 1px solid var(--line);
 }
-
-
-.bundleforge-video-trigger {
+#work .project-featured > .project-media,
+#work .project-card > .project-media {
+  display: block;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #111;
+}
+#work .project-featured > .project-media img,
+#work .project-card > .project-media img {
+  display: block;
   width: 100%;
   height: 100%;
-
   min-height: 0;
-
-  border: 0;
-  border-radius: 0;
-
-  background:
-    radial-gradient(
-      circle at 50% 50%,
-      rgba(184, 255, 90, 0.055),
-      transparent 38%
-    ),
-    var(--surface);
-
-  color: var(--text);
-
-  cursor: pointer;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform .35s ease;
 }
-
-
-.bundleforge-video-trigger::before {
-  content: "BUNDLEFORGE";
-
-  position: absolute;
-
-  top: 50%;
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-
-  font-family: "DM Mono", monospace;
-
-  font-size: clamp(3rem, 10vw, 9rem);
-
-  font-weight: 500;
-
-  letter-spacing: -0.07em;
-
-  color: rgba(255, 255, 255, 0.025);
-
-  white-space: nowrap;
-
-  pointer-events: none;
+#work .project-featured > .project-media:hover img,
+#work .project-card > .project-media:hover img {
+  transform: scale(1.02);
 }
-
-
-.bundleforge-video-trigger .play-ring {
-  position: relative;
-  z-index: 2;
-
-  width: 86px;
-  height: 86px;
-
-  transition:
-    transform 0.35s ease,
-    background 0.35s ease,
-    border-color 0.35s ease;
-}
-
-
-.bundleforge-video-trigger:hover .play-ring {
-  transform: scale(1.1);
-
-  background: var(--accent);
-
-  border-color: var(--accent);
-
-  color: #0b0b0b;
-}
-
-
-.bundleforge-video-trigger .media-bottom {
-  z-index: 3;
-}
-
-
-/* ---------- Intro ---------- */
-
-.bundleforge-intro {
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 90px;
-
-  padding: 90px 0;
-
-  border-bottom: 1px solid var(--line);
-}
-
-
-.bundleforge-intro-title h3 {
-  max-width: 580px;
-
-  margin-top: 20px;
-
-  font-size: clamp(2rem, 4vw, 4rem);
-
-  line-height: 0.98;
-
-  letter-spacing: -0.055em;
-}
-
-
-.bundleforge-intro-title h3 span {
-  display: block;
-
-  color: var(--muted);
-}
-
-
-.bundleforge-intro-copy {
-  max-width: 620px;
-}
-
-
-.bundleforge-intro-copy p {
-  margin: 0 0 25px;
-
-  color: var(--muted);
-
-  font-size: 0.98rem;
-
-  line-height: 1.8;
-}
-
-
-.bundleforge-intro-copy p:last-child {
-  margin-bottom: 0;
-}
-
-
-/* ---------- Feature Grid ---------- */
-
-.bundleforge-features {
-  display: grid;
-
-  grid-template-columns: repeat(4, 1fr);
-
-  border-bottom: 1px solid var(--line);
-}
-
-
-.bundleforge-feature {
-  min-height: 260px;
-
-  padding: 30px;
-
-  border-right: 1px solid var(--line);
-
-  transition:
-    background 0.3s ease,
-    transform 0.3s ease;
-}
-
-
-.bundleforge-feature:first-child {
-  border-left: 1px solid var(--line);
-}
-
-
-.bundleforge-feature:hover {
-  background: rgba(255, 255, 255, 0.025);
-
-  transform: translateY(-3px);
-}
-
-
-.bundleforge-feature-number {
-  display: block;
-
-  margin-bottom: 65px;
-
-  color: var(--accent);
-
-  font-family: "DM Mono", monospace;
-
-  font-size: 0.65rem;
-
-  letter-spacing: 0.08em;
-}
-
-
-.bundleforge-feature h4 {
-  margin-bottom: 12px;
-
-  font-size: 1.05rem;
-
-  font-weight: 600;
-}
-
-
-.bundleforge-feature p {
-  max-width: 250px;
-
-  margin: 0;
-
-  color: var(--muted);
-
-  font-size: 0.85rem;
-
-  line-height: 1.65;
-}
-
-
-/* ---------- Technology Stack ---------- */
-
-.bundleforge-stack {
+#work .project-featured > .project-info,
+#work .project-card > .project-info {
+  min-width: 0;
   display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 8px;
-
-  padding-top: 35px;
+  flex-direction: column;
+  align-items: flex-start;
 }
-
-
-.bundleforge-stack span {
-  padding: 9px 13px;
-
-  border: 1px solid var(--line);
-
-  border-radius: 999px;
-
-  color: var(--muted);
-
-  font-family: "DM Mono", monospace;
-
-  font-size: 0.62rem;
-
-  letter-spacing: 0.06em;
-
-  text-transform: uppercase;
-
-  transition:
-    color 0.25s ease,
-    border-color 0.25s ease,
-    background 0.25s ease;
+#work .project-featured > .project-info { padding: clamp(24px, 3vw, 42px); }
+#work .project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 20px;
+  margin-top: 20px;
 }
-
-
-.bundleforge-stack span:hover {
-  color: var(--text);
-
-  border-color: rgba(184, 255, 90, 0.4);
-
-  background: rgba(184, 255, 90, 0.04);
+#work .project-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
 }
-
-
-/* =========================================================
-   BUNDLEFORGE — RESPONSIVE
-========================================================= */
+#work .project-card > .project-info {
+  flex: 1;
+  width: 100%;
+  padding: 24px;
+}
+#work .project-card .project-link { margin-top: auto; padding-top: 22px; }
+#work .project-card h3 { font-size: clamp(22px, 2.2vw, 28px); line-height: 1.15; }
+#work .project-card p:not(.project-type) { line-height: 1.75; }
+#work .project-card .chips { margin-top: 18px; }
+#work .more-work {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-top: 28px;
+}
+#work .more-work > div { min-width: 0; }
+#work .more-work p { margin-top: 6px; }
 
 @media (max-width: 900px) {
-
-  .bundleforge-section {
-    padding: 100px 0;
-  }
-
-
-  .bundleforge-heading {
-    align-items: flex-start;
-
-    gap: 25px;
-  }
-
-
-  .bundleforge-status {
-    margin-top: 5px;
-  }
-
-
-  .bundleforge-video {
-    height: 65vh;
-    min-height: 450px;
-  }
-
-
-  .bundleforge-intro {
-    grid-template-columns: 1fr;
-
-    gap: 45px;
-
-    padding: 70px 0;
-  }
-
-
-  .bundleforge-features {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-
-  .bundleforge-feature:nth-child(2) {
-    border-right: 0;
-  }
-
-
-  .bundleforge-feature:nth-child(3),
-  .bundleforge-feature:nth-child(4) {
-    border-top: 1px solid var(--line);
-  }
-
+  #work .project-featured { grid-template-columns: minmax(0, 1fr); }
+  #work .project-featured > .project-media { aspect-ratio: 16 / 9; }
+  #work .project-featured > .project-info { padding: 26px; }
 }
-
-
 @media (max-width: 650px) {
-
-  .bundleforge-section {
-    padding: 80px 0;
-  }
-
-
-  .bundleforge-heading {
-    margin-bottom: 30px;
-  }
-
-
-  .bundleforge-heading h2 {
-    font-size: clamp(2.8rem, 14vw, 5rem);
-  }
-
-
-  .bundleforge-status {
-    font-size: 0.58rem;
-
-    padding: 8px 11px;
-  }
-
-
-  .bundleforge-video {
-    height: 58vh;
-    min-height: 380px;
-  }
-
-
-  .bundleforge-video-trigger::before {
-    font-size: 17vw;
-  }
-
-
-  .bundleforge-video-trigger .play-ring {
-    width: 70px;
-    height: 70px;
-
-    font-size: 0.85rem;
-  }
-
-
-  .bundleforge-video-trigger .media-bottom {
-    padding: 0 15px 15px;
-  }
-
-
-  .bundleforge-intro {
-    padding: 60px 0;
-
-    gap: 35px;
-  }
-
-
-  .bundleforge-intro-title h3 {
-    font-size: 2.5rem;
-  }
-
-
-  .bundleforge-intro-copy p {
-    font-size: 0.9rem;
-  }
-
-
-  .bundleforge-features {
-    grid-template-columns: 1fr;
-  }
-
-
-  .bundleforge-feature {
-    min-height: auto;
-
-    padding: 28px 20px;
-
-    border-left: 1px solid var(--line);
-    border-right: 1px solid var(--line);
-
-    border-top: 1px solid var(--line);
-  }
-
-
-  .bundleforge-feature:first-child {
-    border-top: 0;
-  }
-
-
-  .bundleforge-feature-number {
-    margin-bottom: 35px;
-  }
-
-
-  .bundleforge-feature p {
-    max-width: none;
-  }
-
-
-  .bundleforge-stack {
-    gap: 6px;
-  }
-
-
-  .bundleforge-stack span {
-    font-size: 0.56rem;
-
-    padding: 8px 10px;
-  }
-
+  #work .project-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  #work .project-featured > .project-media,
+  #work .project-card > .project-media { aspect-ratio: 16 / 9; }
+  #work .project-featured > .project-info,
+  #work .project-card > .project-info { padding: 20px 18px; }
+  #work .project-card h3 { font-size: 24px; }
+  #work .more-work { align-items: flex-start; flex-direction: column; }
 }

@@ -1,11 +1,3 @@
-// Portfolio interactions
-document.querySelectorAll('.video-placeholder').forEach((card) => {
-  card.addEventListener('click', () => {
-    const project = card.dataset.project || 'Project';
-    alert(`${project} walkthrough video placeholder.\n\nReplace this block with your screen-recording video when it is ready.`);
-  });
-});
-
 // Simple reveal animation
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
