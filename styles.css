@@ -332,3 +332,35 @@ footer { max-width:var(--max); margin:auto; border-top:1px solid var(--line); pa
   #work .project-card h3 { font-size: 24px; }
   #work .more-work { align-items: flex-start; flex-direction: column; }
 }
+
+
+/* BundleForge portfolio feature */
+.bundleforge-featured { margin-bottom: 20px; }
+.bundleforge-preview { position:relative; overflow:hidden; flex-direction:column; gap:18px; }
+.bf-window { width:min(94%,560px); border:1px solid rgba(255,255,255,.14); border-radius:10px; overflow:hidden; background:#101311; box-shadow:0 25px 70px rgba(0,0,0,.35); transform:rotate(-1deg); }
+.bf-window-top { height:38px; display:flex; align-items:center; gap:5px; padding:0 12px; border-bottom:1px solid rgba(255,255,255,.1); color:#d9e5d2; font:10px "DM Mono",monospace; }
+.bf-window-top span { width:6px;height:6px;border-radius:50%;background:#62675e; }
+.bf-window-top b { margin-left:auto; font-weight:500; }
+.bf-window-body { display:grid; grid-template-columns:48px 1fr; min-height:260px; }
+.bf-sidebar { display:flex; flex-direction:column; align-items:center; gap:18px; padding-top:25px; border-right:1px solid rgba(255,255,255,.08); }
+.bf-sidebar i { width:13px;height:13px;border:1px solid #6b8061;border-radius:4px; }
+.bf-dashboard { padding:24px; display:flex; flex-direction:column; align-items:flex-start; }
+.bf-dashboard small { color:#9dbb8e; font:9px "DM Mono",monospace; letter-spacing:.1em; }
+.bf-dashboard strong { font-size:25px; letter-spacing:-.05em; margin:7px 0 18px; }
+.bf-progress { display:flex; gap:7px; width:100%; margin-bottom:18px; }
+.bf-progress i { height:4px; border-radius:4px; background:#343a31; flex:1; }
+.bf-progress i:first-child { background:var(--accent); }
+.bf-mini-card { width:100%; display:flex; justify-content:space-between; gap:10px; padding:12px 14px; margin-bottom:8px; background:#1b2119; border:1px solid rgba(255,255,255,.08); border-radius:5px; font-size:10px; }
+.bf-mini-card span { color:#898f83; }
+.bf-mini-card b { color:#dcebd3; font-weight:600; }
+.bf-preview-caption { color:#a5a79f; font:9px "DM Mono",monospace; letter-spacing:.14em; }
+.bundleforge-featured .project-link { color:var(--accent); }
+@media(max-width:800px) {
+  .bundleforge-featured { grid-template-columns:1fr; }
+  .bundleforge-preview { min-height:340px; }
+  .bf-window { width:100%; }
+  .bf-window-body { min-height:220px; }
+  .bf-dashboard { padding:18px; }
+  .bf-dashboard strong { font-size:21px; }
+  .bf-mini-card { font-size:9px; }
+}

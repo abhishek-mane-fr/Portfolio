@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BundleForge — a Shopify bundles and upsell app project by Abhishek Mane, built with React, TypeScript, PostgreSQL and Prisma.">
+  <title>BundleForge — App Case Study | Abhishek Mane</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .bf-page{max-width:var(--max);margin:auto;padding:76px 28px 110px}
+    .bf-hero{padding:28px 0 80px;border-bottom:1px solid var(--line)}
+    .bf-hero h1{font-size:clamp(58px,9vw,112px);line-height:.9;letter-spacing:-.075em;margin:28px 0}
+    .bf-hero h1 em{font-style:normal;color:var(--accent)}
+    .bf-lead{max-width:760px;color:#aaa;font-size:17px;line-height:1.85}
+    .bf-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+    .bf-status{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(184,255,90,.35);border-radius:99px;padding:8px 12px;color:#c7ed9f;font:10px "DM Mono",monospace;letter-spacing:.08em;text-transform:uppercase}
+    .bf-status i{width:6px;height:6px;background:var(--accent);border-radius:50%}
+    .bf-hero-art{margin-top:55px;background:radial-gradient(circle at 20% 0%,rgba(184,255,90,.12),transparent 38%),#101210;border:1px solid var(--line);padding:clamp(18px,4vw,45px);border-radius:4px}
+    .bf-app-shell{max-width:900px;margin:auto;display:grid;grid-template-columns:190px 1fr;min-height:360px;background:#f7f8f5;color:#222d20;border-radius:10px;overflow:hidden;box-shadow:0 25px 90px #0008}
+    .bf-app-nav{background:#e9ede6;padding:24px 16px;border-right:1px solid #d9dfd5}
+    .bf-app-brand{font-weight:800;font-size:16px;letter-spacing:-.04em;margin-bottom:30px}.bf-app-brand span{color:#5d8b3b}
+    .bf-app-nav small{display:block;font:9px "DM Mono",monospace;color:#788071;margin:22px 0 10px}
+    .bf-app-nav p{font-size:11px;padding:9px 10px;border-radius:5px;color:#596153;margin:3px 0}
+    .bf-app-nav p.active{background:#d5e5ca;color:#263e1b;font-weight:700}
+    .bf-app-main{padding:clamp(20px,4vw,38px)}
+    .bf-app-main .tiny{font:9px "DM Mono",monospace;color:#7b8675;letter-spacing:.1em}
+    .bf-app-main h2{font-size:clamp(22px,3vw,32px);letter-spacing:-.06em;margin:8px 0 5px}
+    .bf-app-main .sub{font-size:11px;color:#7b8277;margin-bottom:25px}
+    .bf-app-steps{display:flex;gap:8px;margin:20px 0 22px}
+    .bf-app-steps span{flex:1;padding:9px 7px;border:1px solid #dfe4dc;border-radius:5px;font-size:9px;color:#7b8277;text-align:center}
+    .bf-app-steps span:first-child{background:#e3efd9;border-color:#a9c996;color:#37562b}
+    .bf-app-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .bf-field{background:white;border:1px solid #e1e5de;border-radius:6px;padding:13px}
+    .bf-field small{display:block;color:#8a9186;font-size:9px;margin-bottom:7px}
+    .bf-field b{font-size:11px;font-weight:700}
+    .bf-app-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:24px;font-size:10px;color:#788071}
+    .bf-app-bottom strong{background:#2f4725;color:white;padding:10px 14px;border-radius:5px;font-size:10px}
+    .bf-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:35px 0 0}
+    .bf-metric{background:var(--bg);padding:22px}
+    .bf-metric strong{display:block;font-size:14px;margin-bottom:5px}
+    .bf-metric span{font:9px "DM Mono",monospace;color:#888}
+    .bf-section{padding:85px 0;border-bottom:1px solid var(--line)}
+    .bf-section-head{display:grid;grid-template-columns:.75fr 1.25fr;gap:50px;margin-bottom:35px}
+    .bf-section h2{font-size:clamp(36px,5vw,60px);line-height:1;letter-spacing:-.065em}
+    .bf-section h2 em{font-style:normal;color:var(--accent)}
+    .bf-section-head p,.bf-copy{color:#999;font-size:14px;line-height:1.9}
+    .bf-feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .bf-feature{border:1px solid var(--line);background:var(--surface);padding:25px}
+    .bf-feature .num{font:10px "DM Mono",monospace;color:var(--accent)}
+    .bf-feature h3{font-size:19px;margin:18px 0 8px;letter-spacing:-.03em}
+    .bf-feature p{color:#92928c;font-size:12px;line-height:1.8}
+    .bf-stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+    .bf-stack span{border:1px solid var(--line);padding:9px 12px;color:#d1d1ca;font:10px "DM Mono",monospace}
+    .bf-process{border-top:1px solid var(--line)}
+    .bf-process-row{display:grid;grid-template-columns:70px .8fr 1.2fr;gap:22px;padding:24px 0;border-bottom:1px solid var(--line)}
+    .bf-process-row .n{color:var(--accent);font:11px "DM Mono",monospace}
+    .bf-process-row h3{font-size:17px}
+    .bf-process-row p{font-size:12px;color:#92928c;line-height:1.8}
+    .bf-note{border:1px solid rgba(184,255,90,.25);padding:24px;background:rgba(184,255,90,.035);color:#aaa;font-size:13px;line-height:1.8}
+    .bf-note strong{color:#e6f8d5}
+    .bf-footer-cta{padding:85px 0 20px}
+    .bf-footer-cta h2{font-size:clamp(38px,6vw,70px);line-height:1;letter-spacing:-.065em;margin:20px 0}
+    .bf-footer-cta h2 em{font-style:normal;color:var(--accent)}
+
+    .bf-real-hero-shot{margin-top:55px;border:1px solid var(--line);background:#101210;padding:clamp(10px,2vw,20px);border-radius:5px}
+    .bf-real-hero-shot img{display:block;width:100%;height:auto;border-radius:3px}
+    .bf-shot-label{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px;color:#8f968a;font:9px "DM Mono",monospace;letter-spacing:.08em;text-transform:uppercase}
+    .bf-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .bf-shot{margin:0;min-width:0;border:1px solid var(--line);background:var(--surface);overflow:hidden}
+    .bf-shot img{display:block;width:100%;height:auto;background:#f4f5f2}
+    .bf-shot figcaption{padding:14px 16px;color:#d8d8d0;font-size:12px;line-height:1.5}
+    .bf-shot figcaption span{display:block;margin-bottom:5px;color:var(--accent);font:9px "DM Mono",monospace;letter-spacing:.08em;text-transform:uppercase}
+    .bf-gallery-note{margin-top:18px;color:#92928c;font-size:12px;line-height:1.8}
+    @media(max-width:760px){.bf-gallery{grid-template-columns:1fr}}
+
+    @media(max-width:760px){.bf-page{padding:48px 18px 70px}.bf-hero{padding-bottom:55px}.bf-section{padding:60px 0}.bf-section-head{grid-template-columns:1fr;gap:18px}.bf-app-shell{grid-template-columns:1fr}.bf-app-nav{display:none}.bf-metrics{grid-template-columns:1fr}.bf-metric{padding:15px 18px}.bf-feature-grid{grid-template-columns:1fr}.bf-process-row{grid-template-columns:32px 1fr;gap:12px}.bf-process-row p{grid-column:2}.bf-fields{grid-template-columns:1fr}.bf-hero-art{padding:12px}.bf-app-main{padding:20px 15px}}
+  </style>
+</head>
+<body>
+<div class="noise"></div>
+<header class="site-header">
+  <a class="brand" href="index.html">AM<span>.</span></a>
+  <nav class="nav">
+    <a href="index.html#work">Client work</a>
+    <a href="#screenshots">App screenshots</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#skills">Skills</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+  <a class="header-cta" href="mailto:abhishekmane08@outlook.com">Let's talk <span>↗</span></a>
+</header>
+<main class="bf-page">
+  <a class="eyebrow" href="index.html#work">← Back to portfolio</a>
+  <section class="bf-hero">
+    <div style="margin-top:30px"><span class="bf-status"><i></i> Personal project · In development</span></div>
+    <h1>Bundle<em>Forge.</em><br>Bundles built<br>for better carts.</h1>
+    <p class="bf-lead">A Shopify app project exploring flexible product bundles, mix-and-match offers and upsell workflows. I’m building the product experience and supporting app architecture with a modern React/TypeScript stack and a PostgreSQL database layer.</p>
+    <div class="bf-actions">
+      <a class="btn btn-primary" href="#overview">Explore the build <span>↓</span></a>
+      <a class="btn btn-ghost" href="mailto:abhishekmane08@outlook.com?subject=BundleForge%20app%20project">Discuss this project <span>↗</span></a>
+    </div>
+    <div class="bf-real-hero-shot">
+      <img src="assets/images/bundleforge/Dashboard.png" alt="Actual BundleForge admin dashboard showing the app workspace">
+      <div class="bf-shot-label"><span>Actual app screenshot</span><span>Personal project · In development</span></div>
+    </div>
+    <div class="bf-metrics">
+      <div class="bf-metric"><strong>Shopify app</strong><span>PRODUCT DIRECTION</span></div>
+      <div class="bf-metric"><strong>React + TypeScript</strong><span>FRONTEND STACK</span></div>
+      <div class="bf-metric"><strong>PostgreSQL + Prisma</strong><span>DATA LAYER</span></div>
+    </div>
+  </section>
+
+  <section class="bf-section" id="overview">
+    <div class="bf-section-head">
+      <div><div class="section-kicker">01 / Overview</div><h2>From bundle setup to <em>storefront offer.</em></h2></div>
+      <p>BundleForge is a personal app project focused on helping merchants configure bundle offers and related upsell experiences. The interface and supporting data models are being developed as part of the project; this page documents the current direction rather than presenting a released app.</p>
+    </div>
+    <div class="bf-feature-grid">
+      <article class="bf-feature"><span class="num">01 / BUNDLES</span><h3>Bundle creation flow</h3><p>A step-based configuration experience for defining bundle details, selecting products, setting offer rules and reviewing the setup.</p></article>
+      <article class="bf-feature"><span class="num">02 / OFFER LOGIC</span><h3>Discount configuration</h3><p>Exploring bundle discount options and Shopify Functions as part of the app’s discount implementation.</p></article>
+      <article class="bf-feature"><span class="num">03 / STOREFRONT</span><h3>Storefront widget</h3><p>Work toward presenting bundle offers within a merchant’s storefront so customers can discover the offer while shopping.</p></article>
+      <article class="bf-feature"><span class="num">04 / UPSELLS</span><h3>Upsell workflows</h3><p>Separate screens and data models for creating and managing upsell offers as a related part of the app experience.</p></article>
+    </div>
+  </section>
+
+  <section class="bf-section" id="screenshots">
+    <div class="bf-section-head">
+      <div><div class="section-kicker">02 / App screenshots</div><h2>The real interface. <em>In progress.</em></h2></div>
+      <p>These screenshots are from the BundleForge app project and show the current interface and implementation work, including bundle setup, discount options, storefront display styles, upsells and data models.</p>
+    </div>
+    <div class="bf-gallery">
+      <figure class="bf-shot"><img src="assets/images/bundleforge/Bundles_page.png" alt="BundleForge bundles management page"><figcaption><span>Bundle management</span>View and manage configured product bundles.</figcaption></figure>
+      <figure class="bf-shot"><img src="assets/images/bundleforge/Create_bundle_Step-1.png" alt="BundleForge bundle creation step one"><figcaption><span>Bundle creation · Step 1</span>Start configuring a new bundle offer.</figcaption></figure>
+      <figure class="bf-shot"><img src="assets/images/bundleforge/Create_bundle_Step-2.png" alt="BundleForge product selection step"><figcaption><span>Bundle creation · Products</span>Choose the products for the bundle.</figcaption></figure>
+      <figure class="bf-shot"><img src="assets/images/bundleforge/Step-4_percentage.png" alt="BundleForge percentage discount configuration"><figcaption><span>Discount configuration</span>Configure a percentage-based discount option.</figcaption></figure>
+      <figure class="bf-shot"><img src="assets/images/bundleforge/Step-5_featured-card.png" alt="BundleForge storefront featured card display option"><figcaption><span>Storefront presentation</span>Explore the featured-card bundle display style.</figcaption></figure>
+      <figure class="bf-shot"><img src="assets/images/bundleforge/Add_bundle_widget.png" alt="BundleForge add bundle widget screen"><figcaption><span>Storefront widget</span>Configure the bundle widget for the storefront.</figcaption></figure>
+      <figure class="bf-shot"><img src="assets/images/bundleforge/Upsells_page.png" alt="BundleForge upsells management page"><figcaption><span>Upsell management</span>Manage related upsell offers in the app.</figcaption></figure>
+      <figure class="bf-shot"><img src="assets/images/bundleforge/Prisma_bundle.png" alt="Prisma schema for BundleForge bundle data"><figcaption><span>Data modeling</span>Prisma schema work for bundle data.</figcaption></figure>
+    </div>
+    <p class="bf-gallery-note">BundleForge is still in development. Screenshots document the current project work and do not imply that every flow is production-ready or publicly available.</p>
+  </section>
+
+  <section class="bf-section">
+    <div class="bf-section-head">
+      <div><div class="section-kicker">03 / Engineering</div><h2>Modern stack. <em>Shopify context.</em></h2></div>
+      <div class="bf-copy">The project gives me hands-on experience beyond theme development, including app UI work, typed frontend code, database modeling and Shopify-specific app capabilities. The list below reflects technologies used or explored in the project, not a claim that every feature is production-ready.</div>
+    </div>
+    <div class="bf-stack"><span>React</span><span>TypeScript</span><span>React Router</span><span>Shopify CLI</span><span>Shopify Functions</span><span>Shopify App Proxy</span><span>PostgreSQL</span><span>Prisma ORM</span></div>
+  </section>
+
+  <section class="bf-section">
+    <div class="bf-section-head">
+      <div><div class="section-kicker">04 / Build notes</div><h2>What I’m <em>working through.</em></h2></div>
+      <p>The work spans merchant-facing configuration and the foundations that support it. This breakdown describes the project’s implementation areas without implying a public launch or a deployed merchant-ready app.</p>
+    </div>
+    <div class="bf-process">
+      <div class="bf-process-row"><span class="n">01</span><h3>App interface</h3><p>Building reusable React and TypeScript screens for bundle creation, review, upsell management and settings.</p></div>
+      <div class="bf-process-row"><span class="n">02</span><h3>Data modeling</h3><p>Defining Prisma schemas for bundle and upsell data backed by PostgreSQL.</p></div>
+      <div class="bf-process-row"><span class="n">03</span><h3>Shopify integration</h3><p>Working with Shopify app patterns, including app-proxy-related functionality and Shopify Functions for discount logic.</p></div>
+      <div class="bf-process-row"><span class="n">04</span><h3>Storefront experience</h3><p>Exploring how bundle offers can be surfaced to shoppers through a storefront widget and connected app flows.</p></div>
+    </div>
+  </section>
+
+  <section class="bf-section">
+    <div class="bf-section-head">
+      <div><div class="section-kicker">05 / Project status</div><h2>A work in progress, <em>documented honestly.</em></h2></div>
+      <p>BundleForge is currently in development. It is included here to show my React, TypeScript and full-stack Shopify app work alongside my client storefront projects.</p>
+    </div>
+    <div class="bf-note"><strong>Current status:</strong> Personal project in development. A public demo or Shopify App Store listing is not available on this page. The interface preview above is an illustrative portfolio mockup, not a live connected application.</div>
+  </section>
+
+  <section class="bf-footer-cta">
+    <p class="eyebrow">Interested in the engineering?</p>
+    <h2>Let's talk Shopify apps<br><em>and custom commerce.</em></h2>
+    <p class="bf-lead">I’m open to Shopify development, app development and full-stack eCommerce opportunities.</p>
+    <div class="bf-actions"><a class="btn btn-primary" href="mailto:abhishekmane08@outlook.com?subject=BundleForge%20project">Email me <span>↗</span></a><a class="btn btn-ghost" href="index.html#work">Back to client projects <span>↗</span></a></div>
+  </section>
+</main>
+<footer><span>© 2026 Abhishek Mane</span><span>Shopify · React · Full-stack</span></footer>
+<script src="script.js"></script>
+</body>
+</html>

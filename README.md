@@ -1,26 +1,20 @@
-# Abhishek Mane — Shopify Developer Portfolio
+# Abhishek Mane — Shopify & Full-stack Developer Portfolio
 
-A responsive personal portfolio focused on Shopify development, custom Liquid work, eCommerce storefronts and client projects.
+A responsive static portfolio for Shopify storefront development, eCommerce client work, and the BundleForge Shopify app project.
 
-## Current setup
-- Static HTML, CSS and JavaScript
-- Responsive layout
-- Profile photo in `assets/images/profile.jpg`
-- Project cards link to live websites
-- Screenshot-ready preview areas (add desktop/mobile images later)
-- LinkedIn and GitHub links
+## Pages
+- `index.html` — main portfolio and selected client projects
+- `projects.html` — additional Shopify projects
+- `bundleforge.html` — BundleForge app case study
 
-## Add project screenshots later
-Replace each `.preview-placeholder` block in `index.html` with an image element, for example:
-
-```html
-<img src="assets/images/herocovers-desktop.jpg" alt="Hero Covers storefront preview">
-```
-
-Store screenshots in `assets/images/` and adjust the image styles in `styles.css` as needed.
+## BundleForge
+BundleForge is a personal Shopify app project currently in development. Its case-study page documents the product direction and technologies used or explored, including React, TypeScript, React Router, Shopify CLI, Shopify Functions, Shopify App Proxy, PostgreSQL and Prisma. The interface shown on the case-study page is an illustrative mockup, not a live app.
 
 ## Run locally
 Open `index.html` directly in a browser, or use VS Code Live Server.
 
 ## Publish with GitHub Pages
-Push these files to the repository configured for GitHub Pages, then enable Pages in the repository settings if needed.
+Upload or push the contents of this folder to the repository configured for GitHub Pages. Confirm all pages and assets work on the published URL after deployment.
+
+
+BundleForge case study: `bundleforge.html`. Actual BundleForge screenshots are stored in `assets/images/bundleforge/` and displayed in the case-study gallery. BundleForge is marked as in development.
